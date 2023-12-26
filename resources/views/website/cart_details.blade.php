@@ -8,7 +8,7 @@
           <div class="product__details__pic">
             <div class="product__details__slider__content">
               <div class="product__details__pic__slider owl-carousel">
-                <img data-hash="product-1" class="product__big__img" src="images/z1.jpg" alt="" />
+                <img data-hash="product-1" class="product__big__img" src={{asset($upload->file_path)}} alt="" />
               </div>
             </div>
           </div>
@@ -27,8 +27,8 @@
           <br>
           <div style="background: #fffaf7;padding: 10px 20px;">
             <div class="down">
-                <a href="{{url('checkout')}}">
-              <button type="submit" class="site-btn2">Add to Cart</button></a>
+                <a href="{{route('checkout.create', $upload->id)}}">
+              <button type="submit" class="site-btn2">Buy Now</button></a>
             </div>
           </div>
           <br>
@@ -37,7 +37,7 @@
               <div class="card" style="width: 18rem;">
 
                 <div class="card-body">
-                  <h5 class="card-title" style="text-align: center">Product Title</h5>
+                  <h5 class="card-title" style="text-align: center">{{$upload->title}}</h5>
                 </div>
                 <hr>
                 {{-- <ul class="list-group list-group-flush">
@@ -46,7 +46,7 @@
                   <li class="list-group-item">Vestibulum at eros</li>
                 </ul> --}}
                 <div class="card-body">
-                <p>THis is a dummy text description of the product</p>
+                <p>{{$upload->description}}</p>
                 </div>
               </div>
             </div>
@@ -55,7 +55,7 @@
         </div>
 
       </div>
-      <div class="row mt-5">
+      <div class="row mt-5 d-none">
         <div class="col-lg-12 text-center">
           <div class="related__title">
             <h5>RELATED PRODUCTS</h5>

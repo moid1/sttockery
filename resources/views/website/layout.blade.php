@@ -56,7 +56,7 @@
       <div class="row">
         <div class="col-xl-1 col-lg-2">
           <a href="{{url('/')}}">
-          <img src="images/logo.svg" alt="" />
+          <img src="{{asset('images/logo.svg')}}" alt="" />
         </a>
         </div>
         <div class="col-xl-6 col-lg-6">
@@ -66,6 +66,7 @@
           @if(Auth::user())
           <div class="header__right">
             <a class="site-btn" href="{{route('upload.file')}}">Upload</a>
+            <a class="site-btn" href="{{route('upload.file')}}">Dashboard</a>
           </div>
           @else
           <div class="header__right">
@@ -91,7 +92,7 @@
         <div class="col-lg-6 col-md-6 col-sm-7">
           <div class="footer__about">
             <div class="footer__logo">
-              <a href="index-2.html"><img src="images/logo.svg" alt=""></a>
+              <a href="index-2.html"><img src="{{asset('images/logo.svg')}}" alt=""></a>
             </div>
             <p style="color: white;">Explore a vast collection of high-quality images, photos, videos and sounds on our website dedicated to online sales.</p>
             <div class="footer__payment">

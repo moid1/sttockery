@@ -38,6 +38,39 @@ class HomeController extends Controller
             return view('home', compact('dataArray', 'users'));
         }
 
+        $uploads = Upload::latest()->get();
+
+        $tags = $uploads->flatMap(function ($item) {
+            return explode(',', $item->tags);
+        })->map(function ($value) {
+            return trim($value);
+        })->unique()->values()->all();
+
+        // $desiredTags = ['tag1', 'tag2', 'tag3']; // Replace with your desired tags
+        // $filteredCollection = $uploads->filter(function ($item) use ($desiredTags) {
+        //     $tags = explode(',', $item->tags);
+        //     $tags = array_map('trim', $tags); // Trim spaces from each tag
+
+        //     // Check if any of the desired tags is present in the item's tags
+        //     return collect($desiredTags)->contains(function ($tag) use ($tags) {
+        //         return collect($tags)->contains(function ($itemTag) use ($tag) {
+        //             return str_contains($itemTag, $tag);
+        //         });
+        //     });
+        // });
+
+        return view('website.home', compact('uploads','tags'));
+    }
+
+    public function index2(){
+        if (Auth::user() && Auth::user()->type == 0) {
+            $dataArray = [];
+            $users = User::where('type', 1)->get();
+            $dataArray['customersCount'] = $users->count();
+            $dataArray['totalUploads'] = Upload::count();
+            return view('home', compact('dataArray', 'users'));
+        }
+
         return view('website.home');
     }
 

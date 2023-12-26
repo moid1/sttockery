@@ -671,3 +671,15 @@ body {
     font-size: 20px;
   }
   
+  .alert-success {
+    color: #4ac18e;
+    background-color: #e2f5ed
+}
+
+.alert-success .alert-link {
+    color: #37a174
+}
+
+.alert-success hr {
+    border-top-color: #37a174
+}

@@ -40,11 +40,11 @@
       <h1 style="padding: 10% 0px 0px 0px;">Sell your vision, buy your inspiration</h1>
       <h4> Sttockry.com</h4>
       <div class="s003">
-        <form style="max-width: 874PX;">
+        <form style="max-width: 874PX;" class="searchForm" method="GET" action="{{route('search')}}">
           <div class="inner-form">
 
             <div class="input-field second-wrap">
-              <input id="search" type="text" placeholder="Enter Keywords?" />
+              <input id="search" name="query" type="text" placeholder="Enter Keywords?" />
             </div>
             <div class="input-field third-wrap">
               <button class="btn-search" type="button">
@@ -84,10 +84,9 @@
             </div>
             <div class="list d-none">
               <ul>
-                <li> <input type="checkbox"/> Mountain</li>
-                <li><input type="checkbox"/> Women</li>
-                <li><input type="checkbox"/> Animal</li>
-                <li><input type="checkbox"/> Men</li>
+                @foreach ($tags as $tag)
+                <li> <input type="checkbox"/> {{$tag}}</li>
+                @endforeach
               </ul>
             </div>
           </div>
@@ -139,22 +138,26 @@
         <div class="row marginT25">
           <div class="col-lg-12">
             <div class="row property__gallery">
-                
-              <div class="col-lg-4 col-md-6 col-sm-6 mix women">
-                <div class="product__item">
-                  <div class="product__item__pic set-bg" data-setbg="">
-                    <a href="{{url('shop')}}">
-                     <img src="{{asset('images/z1.jpg')}}" alt="" />
-                    </a>
-                    <div class="label new">New</div>
-                    <ul class="product__hover">
-                      <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                      <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                    </ul>
+              @if(!empty($uploads) && count($uploads))
+                @foreach ($uploads as $upload)
+                <div class="col-lg-4 col-md-6 col-sm-6 mix women">
+                  <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="">
+                      <a href="{{route('product.detail', $upload->id)}}">
+                        <img src="{{asset($upload->file_path)}}" alt="" />
+                      </a>
+                      {{-- <div class="label new">New</div> --}}
+                      {{-- <ul class="product__hover">
+                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                        <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                      </ul> --}}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 mix men">
+                @endforeach
+                @endif
+
+              {{-- <div class="col-lg-4 col-md-6 col-sm-6 mix men">
                 <div class="product__item">
                   <div class="product__item__pic set-bg" data-setbg="">
                     <video  class="hover-to-play w-100"  src="{{asset('videos/demo.mp4')}}" type="video/mp4" >
@@ -162,77 +165,7 @@
                   </div>
 
                 </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 mix accessories">
-                <div class="product__item">
-                  <div class="product__item__pic set-bg" data-setbg="">
-                    <img src="images/z1.jpg" alt="" />
-                    <div class="label stockout">out of stock</div>
-                    <ul class="product__hover">
-
-                      <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                      <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 mix cosmetic">
-                <div class="product__item">
-                  <div class="product__item__pic set-bg" data-setbg="">
-                    <img src="images/z2.jpg" alt="" />
-                    <ul class="product__hover">
-                      <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                      <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 mix kid">
-                <div class="product__item">
-                  <div class="product__item__pic set-bg" data-setbg="">
-                    <img src="images/z1.jpg" alt="" />
-                    <ul class="product__hover">
-                      <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                      <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 mix women men kid accessories cosmetic">
-                <div class="product__item sale">
-                  <div class="product__item__pic set-bg" data-setbg="">
-                    <img src="images/z2.jpg" alt="" />
-                    <div class="label sale">Sale</div>
-                    <ul class="product__hover">
-                      <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                      <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 mix women men kid accessories cosmetic">
-                <div class="product__item">
-                  <div class="product__item__pic set-bg" data-setbg="">
-                    <img src="images/z1.jpg" alt="" />
-                    <ul class="product__hover">
-                      <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                      <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 mix women men kid accessories cosmetic">
-                <div class="product__item sale">
-                  <div class="product__item__pic set-bg" data-setbg="">
-                    <img src="images/z2.jpg" alt="" />
-                    <div class="label">Sale</div>
-                    <ul class="product__hover">
-                      <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                      <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+              </div> --}}
             </div>
           </div>
         </div>
@@ -246,13 +179,18 @@
 @endsection
 
 <script>
-
-$( document ).ready(function() {
+  $( document ).ready(function() {
   const clip = document.querySelectorAll(".hover-to-play");
   console.log(clip);
 for (let i = 0; i < clip.length; i++) { clip[i].addEventListener("mouseenter", function (e) { clip[i].play();
   }); clip[i].addEventListener("mouseout", function (e) { clip[i].pause(); }); }
+
+
+$('.btn-search').on('click', function(){
+  $(".searchForm").submit();
+ });
 });
 
  
+
 </script>

@@ -72,6 +72,13 @@
                                 </a>
                             </li>
 
+                            <li>
+                                <a href="{{ route('category.index') }}" class="waves-effect">
+                                    <i class="mdi mdi-view-dashboard"></i>
+                                    <span> Category </span>
+                                </a>
+                            </li>
+
                             {{-- <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-buffer"></i> <span>  </span><i class="fa fa-caret-down" style="margin-left:20px; " aria-hidden="true"></i>
                                 </a>
