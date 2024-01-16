@@ -41,7 +41,9 @@
                                         </span>
                                         @enderror
                                     </div>
-
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <a href="{{ route('forget.password.get') }}" style="float: right">Forgot Password?</a>
+                                    </div>
                                    
 
 

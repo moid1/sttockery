@@ -66,7 +66,11 @@
           @if(Auth::user())
           <div class="header__right">
             <a class="site-btn" href="{{route('upload.file')}}">Upload</a>
-            <a class="site-btn" href="{{route('upload.file')}}">Dashboard</a>
+            <a class="site-btn" href="{{ route('logout') }}"  onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();"><i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
+             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form> 
           </div>
           @else
           <div class="header__right">
