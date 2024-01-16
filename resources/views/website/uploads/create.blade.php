@@ -29,7 +29,6 @@
                                             <p class="filename"></p>
                                             <input style="visibility: hidden" id="upload_file" name="upload_file"
                                                 type="file"
-                                                oninput="previewImg.src=window.URL.createObjectURL(this.files[0])"
                                                 class="form-control @error('upload_file') is-invalid @enderror"
                                                 name="upload_file" required autofocus>
                                             @error('upload_file')
@@ -40,8 +39,14 @@
                                         </div>
                                     </div>
                                     <div class="col-7 justify-content-center d-flex">
-                                        <img id="previewImg" height="300px"  alt="">
-
+                                        <img id="previewImg" height="300px" alt="">
+                                        <video id="videoPlayer" controls class="d-none" height="300px" width="270px">
+                                            <source src="" id="preview-vid">
+                                            Your browser does not support HTML5 video.
+                                        </video>
+                                        <audio controls="controls" id="audioPreview" style="display:none">
+                                            <source src="" type="audio/mp4" />
+                                        </audio>
                                     </div>
 
                                     <div class="col-lg-12">
@@ -63,8 +68,8 @@
                                         <div class="checkout__form__input">
                                             <p>Description <span>*</span></p>
                                             <input id="description" type="text"
-                                                class="form-control @error('description') is-invalid @enderror" name="description"
-                                                value="{{ old('description') }}" required>
+                                                class="form-control @error('description') is-invalid @enderror"
+                                                name="description" value="{{ old('description') }}" required>
                                         </div>
 
                                         @error('description')
@@ -77,19 +82,20 @@
                                     <div class="col-lg-12">
                                         <div class="checkout__form__input">
                                             <p>Category <span>*</span></p>
-                                           <select class="select-form-control" name="category_id" required>
-                                            <option value="" disabled>Please select category</option>
-                                            @foreach ($categories as $category)
+                                            <select class="select-form-control" name="category_id" required>
+                                                <option value="" disabled>Please select category</option>
+                                                @foreach ($categories as $category)
                                                 <option value="{{$category->id}}">{{$category->name}}</option>
-                                            @endforeach
-                                           </select>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-12">
                                         <div class="checkout__form__input">
                                             <p>Price <span></span></p>
-                                            <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price"
+                                            <input id="price" type="number"
+                                                class="form-control @error('price') is-invalid @enderror" name="price"
                                                 value="{{ old('price') }}">
                                         </div>
                                     </div>
@@ -103,7 +109,7 @@
                                         </div>
                                     </div>
 
-
+                                    <input type="hidden" name="format_type" id="formatType">
 
 
 
@@ -132,11 +138,42 @@ $( document ).ready(function() {
     $("#upload_file").change(function() {
   filename = this.files[0].name;
   $('.filename').text(filename);
-  console.log(filename);
+  imgPreview(this);
+
 });
 });
-   
+
+
+function imgPreview(input) {
+    var file = input.files[0];
+    var mixedfile = file['type'].split("/");
+    var filetype = mixedfile[0]; // (image, video)
+    $('#formatType').val(filetype);
+    $("#previewImg").removeAttr("src");
+    $("#preview-vid").removeAttr("src");
+    $("#audioPreview").removeAttr("src");
+    
+    if(filetype == "image"){
+        $('#formatType').val('image');
+      var reader = new FileReader();
+      reader.onload = function(e){
+        $("#previewImg").show().attr("src", e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+      $("#videoPlayer").addClass('d-none');
+    }else if(filetype == "video"){
+        $("#videoPlayer").removeClass('d-none')
+      $("#preview-vid").show().attr("src", URL.createObjectURL(input.files[0]));
+      $("#videoPlayer")[0].load();
+    }else if(filetype == "audio"){
+        $("#audioPreview").show().attr("src", URL.createObjectURL(input.files[0]));
+    }else{
+        alert("Invalid file type");
+    }
+  }
 </script>
+
+
 
 @section('lastScripts')
 <script src="{{asset('website/js/selectize.js')}}"></script>

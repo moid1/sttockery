@@ -134,7 +134,7 @@
               <a href="#"><i class="fa fa-pinterest"></i></a>
             </div>
 
-            <div class="review-star mt-3 footer__about" style="margin-top: 25px;">
+            {{-- <div class="review-star mt-3 footer__about" style="margin-top: 25px;">
 
               <h6 class="reviewBtn">Reviews</h6>
               <span class="fa fa-star checked"></span>
@@ -142,7 +142,7 @@
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
-            </div>
+            </div> --}}
           </div>
         </div>
       </div>

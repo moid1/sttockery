@@ -17,6 +17,7 @@ class SimpleController extends Controller
         })->map(function ($value) {
             return trim($value);
         })->unique()->values()->all();
+        $tags = array_slice($tags, 0, 10);
 
         // $desiredTags = ['tag1', 'tag2', 'tag3']; // Replace with your desired tags
         // $filteredCollection = $uploads->filter(function ($item) use ($desiredTags) {

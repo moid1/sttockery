@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\category;
 use App\Models\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +22,7 @@ class UploadController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('active', 1)->get();
+        $categories = category::where('active', 1)->get();
         return view('website.uploads.create', compact('categories'));
     }
 
@@ -41,9 +41,10 @@ class UploadController extends Controller
             'title' => $request->title,
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'price' => $request->price
+            'price' => $request->price,
+            'format_type' => $request->format_type
         ]);
-
+return redirect('/account');
         return back()->with('success', 'Uploding successfull');
     }
 
@@ -77,5 +78,10 @@ class UploadController extends Controller
     public function destroy(Upload $upload)
     {
         //
+    }
+
+    public function getAccountUploads(){
+        $uploads = Upload::where('user_id', Auth::id())->get();
+        return view('website.account.index', compact('uploads'));
     }
 }

@@ -8,7 +8,18 @@
           <div class="product__details__pic">
             <div class="product__details__slider__content">
               <div class="product__details__pic__slider owl-carousel">
-                <img data-hash="product-1" class="product__big__img" src={{asset($upload->file_path)}} alt="" />
+                @if($upload->format_type == 'image')
+                        <img src="{{asset($upload->file_path)}}" alt="" />
+                        @elseif($upload->format_type == 'video')
+                        <video id="videoPlayer" controls height="300px" width="300px">
+                            <source src="{{asset($upload->file_path)}}" id="preview-vid">
+                            Your browser does not support HTML5 video.
+                        </video>
+                        @elseif($upload->format_type == 'audio')
+                        <audio controls="controls" id="audioPreview">
+                            <source src="{{asset($upload->file_path)}}" type="audio/mp4" />
+                        </audio>
+                        @endif
               </div>
             </div>
           </div>
