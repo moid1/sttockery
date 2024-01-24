@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="col-7 justify-content-center d-flex">
                                         <img id="previewImg" height="300px" alt="">
-                                        <video id="videoPlayer" controls class="d-none" height="300px" width="270px">
+                                        <video id="videoPlayer" controls controlsList="nodownload" class="d-none" height="300px" width="270px">
                                             <source src="" id="preview-vid">
                                             Your browser does not support HTML5 video.
                                         </video>

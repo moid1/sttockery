@@ -147,7 +147,7 @@
                     @if($upload->format_type == 'image')
                       <img src="{{asset($upload->file_path)}}" alt="" />
                     @elseif($upload->format_type == 'video')
-                      <video id="videoPlayer" controls  height="300px" width="270px">
+                      <video id="videoPlayer" controls controlsList="nodownload"  height="300px" width="270px">
                         <source src="{{asset($upload->file_path)}}" id="preview-vid">
                         Your browser does not support HTML5 video.
                       </video>
