@@ -147,21 +147,38 @@
                     @if($upload->format_type == 'image')
                       <img src="{{asset($upload->file_path)}}" alt="" />
                     @elseif($upload->format_type == 'video')
-                      <video id="videoPlayer" controls controlsList="nodownload"  height="300px" width="270px">
+                      <video disablePictureInPicture id="videoPlayer" controls controlsList="nodownload"  height="300px" width="270px">
                         <source src="{{asset($upload->file_path)}}" id="preview-vid">
                         Your browser does not support HTML5 video.
                       </video>
                     @elseif($upload->format_type == 'audio')
-                      <audio controls="controls" id="audioPreview" >
+                      <audio controls="controls" controlsList="nodownload" id="audioPreview" >
                         <source src="{{asset($upload->file_path)}}" type="audio/mp4" />
                       </audio>
                     @endif
                   </a>
                   {{-- <div class="label new">New</div> --}}
-                  {{-- <ul class="product__hover">
-                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                  </ul> --}}
+                  <ul class="product__hover">
+                   <li>
+                      <a href="{{route('like.store', $upload->id)}}">
+                        <span class="fa fa-thumbs-up"></span>
+                        {{$upload->likes ? $upload->likes->count() : ''}}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{route('dislike.store', $upload->id)}}">
+                        <span class="fa fa-thumbs-down"></span>
+                        {{$upload->disLikes ? $upload->disLikes->count() : ''}}
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="https://www.facebook.com/sharer/sharer.php?u={{urlencode(route('product.detail', $upload->id))}}">
+                        <span class="fa fa-share " ></span>
+                        <span></span>
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>

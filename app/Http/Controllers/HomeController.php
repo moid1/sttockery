@@ -38,8 +38,7 @@ class HomeController extends Controller
             return view('home', compact('dataArray', 'users'));
         }
 
-        $uploads = Upload::latest()->get();
-
+        $uploads = Upload::latest()->with(['likes'],['disLikes'])->get();
         $tags = $uploads->flatMap(function ($item) {
             return explode(',', $item->tags);
         })->map(function ($value) {

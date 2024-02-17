@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SimpleController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,9 +79,12 @@ Route::get('/payment',  [PaymentController::class, 'index']);
 Route::post('/payment', [PaymentController::class, 'payment'])->name('payment.store');
 
 Route::get('checkout/{id}', [CheckoutController::class, 'create'])->name('checkout.create');
+Route::get('like/{id}', [LikeController::class, 'likePost'])->name('like.store');
+Route::get('dislike/{id}', [LikeController::class, 'dislikePost'])->name('dislike.store');
 
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 Route::get('account', [UploadController::class,'getAccountUploads'])->name('account.uploads');
+
