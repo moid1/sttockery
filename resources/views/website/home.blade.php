@@ -143,44 +143,59 @@
             <div class="col-lg-4 col-md-6 col-sm-6 mix women">
               <div class="product__item">
                 <div class="product__item__pic set-bg" data-setbg="">
-                  <a href="{{route('product.detail', $upload->id)}}">
-                    @if($upload->format_type == 'image')
-                      <img src="{{asset($upload->file_path)}}" alt="" />
-                    @elseif($upload->format_type == 'video')
-                      <video disablePictureInPicture id="videoPlayer" controls controlsList="nodownload"  height="300px" width="270px">
-                        <source src="{{asset($upload->file_path)}}" id="preview-vid">
-                        Your browser does not support HTML5 video.
-                      </video>
-                    @elseif($upload->format_type == 'audio')
-                      <audio controls="controls" controlsList="nodownload" id="audioPreview" >
-                        <source src="{{asset($upload->file_path)}}" type="audio/mp4" />
-                      </audio>
-                    @endif
-                  </a>
-                  {{-- <div class="label new">New</div> --}}
-                  <ul class="product__hover">
-                   <li>
-                      <a href="{{route('like.store', $upload->id)}}">
-                        <span class="fa fa-thumbs-up"></span>
-                        {{$upload->likes ? $upload->likes->count() : ''}}
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{{route('dislike.store', $upload->id)}}">
-                        <span class="fa fa-thumbs-down"></span>
-                        {{$upload->disLikes ? $upload->disLikes->count() : ''}}
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="https://www.facebook.com/sharer/sharer.php?u={{urlencode(route('product.detail', $upload->id))}}">
-                        <span class="fa fa-share " ></span>
-                        <span></span>
-                      </a>
-                    </li>
-                  </ul>
+                    <a href="{{ route('product.detail', $upload->id) }}">
+                        @if($upload->format_type == 'image')
+                        <img src="{{ asset($upload->file_path) }}" alt="" />
+                        @elseif($upload->format_type == 'video')
+                        <video disablePictureInPicture id="videoPlayer{{$upload->id}}" height="300px" width="270px">
+                            <source src="{{ asset($upload->file_path) }}" id="preview-vid">
+                            Your browser does not support HTML5 video.
+                        </video>
+                        @elseif($upload->format_type == 'audio')
+                        <audio controls="controls"  id="audioPlayer{{$upload->id}}">
+                            <source src="{{ asset($upload->file_path) }}" type="audio/mp4" />
+                        </audio>
+                        @endif
+                    </a>
+                    {{-- <div class="label new">New</div> --}}
+                    <ul class="product__hover">
+                        @if($upload->format_type == 'video')
+                        <li>
+                            <a href="#" class="play-video" data-video-id="{{$upload->id}}">
+                                <span class="fa fa-play"></span>
+                                <span></span>
+                            </a>
+                        </li>
+                        @elseif($upload->format_type == 'audio')
+                        <li>
+                            <a href="#" class="play-audio" data-audio-id="{{$upload->id}}">
+                                <span class="fa fa-play"></span>
+                                <span></span>
+                            </a>
+                        </li>
+                        @endif
+                        <li>
+                            <a href="{{ route('like.store', $upload->id) }}">
+                                <span class="fa fa-thumbs-up"></span>
+                                {{$upload->likes ? $upload->likes->count() : ''}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('dislike.store', $upload->id) }}">
+                                <span class="fa fa-thumbs-down"></span>
+                                {{$upload->disLikes ? $upload->disLikes->count() : ''}}
+                            </a>
+                        </li>
+            
+                        <li>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{urlencode(route('product.detail', $upload->id))}}">
+                                <span class="fa fa-share " ></span>
+                                <span></span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-              </div>
+            </div>
             </div>
             @endforeach
             @endif
@@ -222,3 +237,41 @@ $('.btn-search').on('click', function(){
  
 
   </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.play-video').forEach(function (element) {
+          element.addEventListener('click', function (event) {
+              event.preventDefault();
+              var videoId = this.getAttribute('data-video-id');
+              var videoPlayer = document.getElementById('videoPlayer' + videoId);
+              if (videoPlayer.paused) {
+                  videoPlayer.play();
+                  this.querySelector('.fa').classList.remove('fa-play');
+                  this.querySelector('.fa').classList.add('fa-pause');
+              } else {
+                  videoPlayer.pause();
+                  this.querySelector('.fa').classList.remove('fa-pause');
+                  this.querySelector('.fa').classList.add('fa-play');
+              }
+          });
+      });
+
+      document.querySelectorAll('.play-audio').forEach(function (element) {
+          element.addEventListener('click', function (event) {
+              event.preventDefault();
+              var audioId = this.getAttribute('data-audio-id');
+              var audioPlayer = document.getElementById('audioPlayer' + audioId);
+              if (audioPlayer.paused) {
+                  audioPlayer.play();
+                  this.querySelector('.fa').classList.remove('fa-play');
+                  this.querySelector('.fa').classList.add('fa-pause');
+              } else {
+                  audioPlayer.pause();
+                  this.querySelector('.fa').classList.remove('fa-pause');
+                  this.querySelector('.fa').classList.add('fa-play');
+              }
+          });
+      });
+  });
+</script>
